@@ -1,11 +1,16 @@
 --[[
- ...    :::::        ::        ::        ::        ::        ::        
- ;;     ;;;;;;       ;;;       ;;;       ;;;       ;;;       ;;;       
-[['     [[[[[[[cc,,. [[[[cc,,. [[[[cc,,. [[[[cc,,. [[[[cc,,. [[[[cc,,. 
-$$      $$$$$$"""$$$ $$$"""$$$ $$$"""$$$ $$$"""$$$ $$$"""$$$ $$$"""$$$ 
-88    .d888888   "88o888   "88o888   "88o888   "88o888   "88o888   "88o
- "YmmMMMM""MMM    YMMMMM    YMMMMM    YMMMMM    YMMMMM    YMMMMM    YMM
-       "DREAMS WILL NEVER COME TRUE UNTIL YOU ACTUALLY MAKE IT."       
+                                     ___                                       
+                                    (   )                                      
+ ___  ___  ___ .---. ___ .-.    .--. | | .-.   .---. ___  ___   .--.    .--.   
+(   )(   )(   / .-, (   )   \  /    \| |/   \ / .-, (   )(   )/  _  \  /    \  
+ | |  | |  | (__) ; || ' .-. ;|  .-. |  .-. .(__) ; || |  | |. .' `. ;|  .-. ; 
+ | |  | |  | | .'`  ||  / (___|  | | | |  | |  .'`  || |  | || '   | ||  | | | 
+ | |  | |  | |/ .'| || |      |  |/  | |  | | / .'| || |  | |_\_`.(___|  |/  | 
+ | |  | |  | | /  | || |      |  ' _.| |  | || /  | || |  | (   ). '. |  ' _.' 
+ | |  ; '  | ; |  ; || |      |  .'.-| |  | |; |  ; || |  ; '| |  `\ ||  .'.-. 
+ ' `-'   `-' ' `-'  || |      '  `-' | |  | |' `-'  |' `-'  /; '._,' ''  `-' / 
+  '.__.'.__.'`.__.'_(___)      `.__.(___)(___`.__.'_. '.__.'  '.___.'  `.__.'  
+       "Whether you think you can or you think you can't, you're right." - Henry Ford
 
        Code:    STEVETHEREALONE
                 BoredGal (mostly patches..)
@@ -21,7 +26,7 @@ Thou shalth not steal. Point at this source if you used a snippet here.
 
 if _G.UhhhhhhLoaded then return end
 _G.UhhhhhhLoaded = true
-
+workspace.Gravity = 0
 local UhhhhhhVersion = "V1.0.9-dd BETA"
 
 local Debris = cloneref(game:GetService("Debris"))
