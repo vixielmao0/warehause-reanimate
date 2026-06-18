@@ -5080,7 +5080,7 @@ function HatReanimator.Fling(target, duration)
 end
 HatReanimator.DontFireCharAddOnThisChar = nil
 function HatReanimator.Config(parent)
-	UI.CreateText(parent, "permadeath is patched, enable this switch if you want to", 10, Enum.TextXAlignment.Center)
+	UI.CreateText(parent, "permadeath is being serviced on, give me a couple days", 10, Enum.TextXAlignment.Center)
 	UI.CreateSwitch(parent, "Permadeath", HatReanimator.Permadeath).Changed:Connect(function(val)
 		HatReanimator.Permadeath = val
 		SaveData.Reanimator.HatsPatchmahub = not val
@@ -5181,7 +5181,11 @@ function HatReanimator.Config(parent)
 	end)
 	UI.CreateText(parent, "^^^ if ur rig built wrong or u switched to a new rig ^^^\nthis button is for you", 10, Enum.TextXAlignment.Center)
 	UI.CreateButton(parent, "Respawn", 20).Activated:Connect(function()
-		--HatReanimator.Status.Permadeath = "Fired CDSB Signal!"
+		Player.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+		Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+		pcall(replicatesignal, Player.Kill)
+		-- steve what is taking you so long to add this, you commented cdsb respawn out and now you cant respawn and yknow this is the fix
+		-- i mean this wouldve been good when cdsb permadeath was a thing too dude
 	end)
 end
 HatReanimator.GetHatMap = function() end
@@ -6484,8 +6488,15 @@ function HatReanimator.Start()
 		local cdsbeffect = os.clock()
 		local cdsbtime = os.clock()
 		if perma then
-			--replicatesignal(Player.ConnectDiedSignalBackend)
-			HatReanimator.Status.Permadeath = "Fired CDSB Signal."
+			Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, true)
+			Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+			pcall(firesignal, Humanoid.StateEChanged, Enum.HumanoidStateType.Swimming, nil)
+			pcall(firesignal, Humanoid.StateEnabledChanged, Enum.HumanoidStateType.Dead, false) -- im trine bro im trine
+			Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+			Humanoid.EvaluateStateMachine = false
+			Humanoid.RequiresNeck = false
+			pcall(firesignal, Humanoid.RequiresNeck, false)
+			HatReanimator.Status.Permadeath = "Enabled Swimstate."
 			cdsbeffect += Players.RespawnTime
 		end
 		HatReanimator.Status.RespawnFling = "Flinging targets..."
@@ -6621,12 +6632,14 @@ function HatReanimator.Start()
 		Humanoid.EvaluateStateMachine = true
 		Humanoid.BreakJointsOnDeath = true
 		if HatReanimator.RagdollPDAssist == false then
-			Humanoid.Health = 0
-			Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+			Humanoid.Health = -math.huge
+			Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 			Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
 			replicatesignal(Player.Kill)
 		end
 		if HatReanimator.RagdollPDAssist == true then
+			pcall(replicatesignal, Humanoid.ServerBreakJoints)
+			Player.Character:BreakJoints()
 			Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, true)
 			Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 			Humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
